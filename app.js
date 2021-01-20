@@ -9,13 +9,14 @@ app.get('/', function (req, res) {
 })
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
-const schema = require('./graphql/schema');
-const root = require('./graphql/resolvers');
+const graphQlSchema = require('./graphql/schema');
+const graphQlResolvers = require('./graphql/resolvers');
 
 app.use('/graphql', graphqlHTTP({
-    schema: schema,
-    rootValue: root,
+    schema: graphQlSchema,
+    rootValue: graphQlResolvers,
     graphiql: true,
+    pretty: true,
 }));
 
 app.listen(3000, function () {

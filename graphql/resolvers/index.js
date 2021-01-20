@@ -1,4 +1,6 @@
 const categoryController = require('../../controllers/category');
-exports.categories = categoryController.getAll
-exports.category = categoryController.get
-exports.addCategory = categoryController.create;
+const userController = require('../../controllers/user');
+module.exports = {
+    ...userController,
+    ...categoryController
+}
