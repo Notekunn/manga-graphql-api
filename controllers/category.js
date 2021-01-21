@@ -1,14 +1,14 @@
 const Category = require('../models/Category');
 const utils = require('../utils');
 
-exports.categories = function () {
+exports.categories = function ({ filter = {} }) {
     return Category
-        .find({})
+        .find({ ...filter })
         .sort({ title: 1 })
         .exec();
 }
-exports.createCategory = async function (args) {
-    const { title, description } = args;
+exports.createCategory = async function ({ categoryInput = {} }) {
+    const { title, description } = categoryInput;
     const slug = await utils.generateSlug(Category, title, null);
     const category = new Category({
         title,
@@ -17,8 +17,9 @@ exports.createCategory = async function (args) {
     });
     return await category.save();
 }
-exports.category = async function ({ _id }) {
-    const category = await Category.findById(_id).exec();
+exports.category = async function ({ filter = {} }) {
+    const category = await Category
+        .findOne({ ...filter }).exec();
     return category;
 }
 exports.deleteCategory = async function (args) {

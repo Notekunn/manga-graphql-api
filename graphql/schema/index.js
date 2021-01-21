@@ -12,12 +12,14 @@ type Category {
     slug: String
     description: String
 }
-type Artist {
+input CategoryFilter{    
     _id: ID
-    name: String!
+    title: String
     slug: String
-    about: String
-    coverUrl: String
+}
+input CategoryInput{    
+    title: String!
+    description: String
 }
 enum Permission{
     admin,
@@ -47,15 +49,34 @@ input UserInput {
     name: String
     email: String
 }
+type Artist {
+    _id: ID
+    name: String!
+    slug: String
+    about: String
+    coverUrl: String
+}
+input ArtistFilter {
+    _id: ID
+    name: String
+    slug: String
+}
+input ArtistInput {
+    name: String
+    about: String
+    coverUrl: String
+}
 type RootQuery {
-    category(_id: ID): Category
-    categories: [Category!]!
+    category(filter: CategoryFilter): Category
+    categories(filter: CategoryFilter): [Category!]!
     user(filter: UserFilter): User
     users(filter: UserFilter): [User!]!
+    artists(filter: ArtistFilter): [Artist!]!
+    artist(filter: ArtistFilter): Artist
 }
 type RootMutation {
-    createCategory(title: String, description: String): Category!
-    register(userInput: UserInput): User!
+    createCategory(categoryInput: CategoryInput!): Category!
+    register(userInput: UserInput!): User!
     login(userInput: UserInput): AuthData!
 }
 schema {
