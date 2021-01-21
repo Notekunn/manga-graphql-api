@@ -31,7 +31,7 @@ type User {
     _id: ID
     userName: String!
     name: String
-    mail: String!
+    email: String!
     avatarUrl: String
     permission: Permission
     createdAt: Date
@@ -40,7 +40,7 @@ input UserFilter {
     _id: ID
     userName: String
     name: String
-    mail: String    
+    email: String    
     permission: Permission
 }
 input UserInput {
@@ -66,6 +66,19 @@ input ArtistInput {
     about: String
     coverUrl: String
 }
+type TranslatorGroup {
+    _id: ID
+    name: String
+    description: String
+    members: [User!]!
+    manager: User!
+    createdAt: Date
+}
+input TranslatorGroupFilter {
+    _id: ID
+    name: String
+    manager: ID
+}
 type RootQuery {
     category(filter: CategoryFilter): Category
     categories(filter: CategoryFilter): [Category!]!
@@ -73,6 +86,7 @@ type RootQuery {
     users(filter: UserFilter): [User!]!
     artists(filter: ArtistFilter): [Artist!]!
     artist(filter: ArtistFilter): Artist
+    translatorGroups(filter: TranslatorGroupFilter): [TranslatorGroup!]!
 }
 type RootMutation {
     createCategory(categoryInput: CategoryInput!): Category!
