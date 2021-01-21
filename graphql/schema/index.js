@@ -84,8 +84,9 @@ type RootQuery {
     categories(filter: CategoryFilter): [Category!]!
     user(filter: UserFilter): User
     users(filter: UserFilter): [User!]!
-    artists(filter: ArtistFilter): [Artist!]!
     artist(filter: ArtistFilter): Artist
+    artists(filter: ArtistFilter): [Artist!]!
+    translatorGroup(filter: TranslatorGroupFilter): TranslatorGroup
     translatorGroups(filter: TranslatorGroupFilter): [TranslatorGroup!]!
 }
 type RootMutation {
