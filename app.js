@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const { graphqlHTTP } = require('express-graphql');
+const cors = require('cors');
 const mongoose = require('mongoose');
 const PORT = process.env.PORT || 3000;
 app.use(express.json());
@@ -12,6 +13,7 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 const graphQlSchema = require('./graphql/schema');
 const graphQlResolvers = require('./graphql/resolvers');
 
+app.use(cors());
 app.use('/graphql', graphqlHTTP({
     schema: graphQlSchema,
     rootValue: graphQlResolvers,
