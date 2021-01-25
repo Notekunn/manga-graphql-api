@@ -4,13 +4,16 @@ const User = mongoose.model('User')
 const utils = require('../utils')
 
 exports.translatorGroups = async function ({ filter = {} }) {
-    const translators = await TranslatorGroup.find({ ...filter }).populate([{
-        path: 'manager',
-        select: ['-password', '-__v']
-    }, {
-        path: 'members',
-        select: ['-password', '-__v']
-    }]).sort({ name: 1 }).exec();
+    const translators = await TranslatorGroup
+        .find({ ...filter })
+        .populate([{
+            path: 'manager',
+            select: ['-password', '-__v']
+        }, {
+            path: 'members',
+            select: ['-password', '-__v']
+        }])
+        .sort({ name: 1 }).exec();
     return translators;
 }
 exports.translatorGroup = async function ({ filter = {} }) {
