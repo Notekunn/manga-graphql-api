@@ -3,7 +3,13 @@ const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const { SECRET_KEY } = process.env;
 const SALT = 10;
-exports.users = async function ({ filter = {} }) {
+Date.prototype.addDays = function (days) {
+    var date = new Date(this.valueOf());
+    date.setDate(date.getDate() + days);
+    return date;
+}
+exports.users = async function ({ filter = {} }, req) {
+    console.log(req.user);
     return await User.find({ ...filter })
         .select(['-password', '-__v'])
         .sort({ createdAt: 1 })
@@ -39,8 +45,11 @@ exports.login = async function ({ userInput = {} }) {
     const { userName, password } = userInput;
     const user = await User.findOne({ $or: [{ email: userName }, { userName: userName }] });
     if (!user || !user.comparePassword(password)) throw new Error("Tài khoản hoặc mật khẩu không đúng")
+    const token = jwt.sign({ email: user.email, _id: user._id, permission: user.permission }, SECRET_KEY, { expiresIn: '7d' });
+    const dateExpiration = new Date().addDays(7);
     return {
         userId: user._id,
-        token: jwt.sign({ email: user.email, _id: user._id }, SECRET_KEY, { expiresIn: '7d' })
+        token,
+        tokenExpiration: dateExpiration,
     };
 }

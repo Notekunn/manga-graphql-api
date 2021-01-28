@@ -4,11 +4,13 @@ const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-
+const jwt = require('express-jwt');
+const authMiddleware = require('./middleware/auth')
 const PORT = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
 app.use(express.json());
+app.use(authMiddleware)
 app.get('/', function (req, res) {
     res.send("Ahihi");
 })

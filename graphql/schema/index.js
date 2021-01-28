@@ -5,6 +5,7 @@ scalar Date
 type AuthData {
     userId: ID!
     token: String!
+    tokenExpiration: Date!
 }
 type Category {
     _id: ID
