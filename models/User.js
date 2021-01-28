@@ -51,4 +51,8 @@ UserSchema.methods.isAuthority = function (permission) {
 UserSchema.methods.comparePassword = function (password) {
     return bcrypt.compareSync(password, this.password);
 };
-module.exports = mongoose.model('User', UserSchema)
+try {
+    module.exports = mongoose.model('User', UserSchema)
+} catch (error) {
+    module.exports = mongoose.model('User')
+}

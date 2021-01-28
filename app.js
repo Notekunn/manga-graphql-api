@@ -5,7 +5,9 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 const jwt = require('express-jwt');
-const authMiddleware = require('./middleware/auth')
+const graphQlSchema = require('./graphql/schema');
+const graphQlResolvers = require('./graphql/resolvers');
+const authMiddleware = require('./middleware/auth');
 const PORT = process.env.PORT || 3000;
 
 app.use(morgan('dev'));
@@ -17,8 +19,6 @@ app.get('/', function (req, res) {
 
 mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true })
 
-const graphQlSchema = require('./graphql/schema');
-const graphQlResolvers = require('./graphql/resolvers');
 
 app.use(cors());
 app.use('/graphql', graphqlHTTP({
