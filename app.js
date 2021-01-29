@@ -4,11 +4,11 @@ const { graphqlHTTP } = require('express-graphql');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
-const jwt = require('express-jwt');
 const graphQlSchema = require('./graphql/schema');
 const graphQlResolvers = require('./graphql/resolvers');
 const authMiddleware = require('./middleware/auth');
-const PORT = process.env.PORT || 3000;
+const expressPlayground = require('graphql-playground-middleware-express').default;
+const { HOST = "http://localhost", PORT = 3000 } = process.env;
 
 app.use(morgan('dev'));
 app.use(express.json());
@@ -27,7 +27,10 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true,
     pretty: true,
 }));
+app.get('/playground', expressPlayground({
+    endpoint: '/graphql'
+}))
 
 app.listen(PORT, function () {
-    console.log("http://127.0.0.1:" + PORT);
+    console.log(HOST + ":" + PORT);
 });
