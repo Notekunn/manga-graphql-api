@@ -10,7 +10,7 @@ const authMiddleware = require('./middleware/auth');
 const expressPlayground = require('graphql-playground-middleware-express').default;
 const { HOST = "http://localhost", PORT = 3000 } = process.env;
 
-app.use(morgan('dev'));
+process.env.NODE_ENV !== 'production' && app.use(morgan('dev'));
 app.use(express.json());
 app.use(authMiddleware)
 app.get('/', function (req, res) {
