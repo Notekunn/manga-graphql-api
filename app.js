@@ -27,6 +27,7 @@ app.use('/graphql', graphqlHTTP({
     graphiql: true,
     pretty: true,
 }));
+
 app.get('/playground', expressPlayground({
     endpoint: '/graphql'
 }))
