@@ -25,6 +25,10 @@ exports.user = async function ({ filter = {} }) {
     }
     return u;
 }
+exports.me = async function (args, req) {
+    if (!req.user) throw new Error('Bạn chưa đăng nhập');
+    return req.user;
+}
 exports.register = async function ({ userInput = {} }) {
     const { name, userName, password, email } = userInput;
     const user = new User();

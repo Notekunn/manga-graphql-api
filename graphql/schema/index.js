@@ -84,6 +84,7 @@ type RootQuery {
     category(filter: CategoryFilter): Category
     categories(filter: CategoryFilter): [Category!]!
     user(filter: UserFilter): User
+    me: User
     users(filter: UserFilter): [User!]!
     artist(filter: ArtistFilter): Artist
     artists(filter: ArtistFilter): [Artist!]!
