@@ -9,7 +9,6 @@ Date.prototype.addDays = function (days) {
     return date;
 }
 exports.users = async function ({ filter = {} }, req) {
-    console.log(req.user);
     return await User.find({ ...filter })
         .select(['-password', '-__v'])
         .sort({ createdAt: 1 })
