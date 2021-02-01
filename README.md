@@ -123,7 +123,7 @@ type RootMutation {
 ### TO-DO List
 
 - [x] Use case diagram
-- [ ] Viết api document [Redoc](https://github.com/Redocly/redoc)
+- [x] Viết api document [Schema](https://manga-graphql-api.herokuapp.com/playground)
 
 ### Actor: Anonymous
 - [x] Đăng nhập - Đăng xuất
