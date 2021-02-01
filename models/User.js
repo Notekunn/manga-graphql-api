@@ -38,7 +38,7 @@ const UserSchema = new Schema({
     }
 });
 UserSchema.methods.isAuthority = function (permission) {
-    const permissionLevel = {
+    const permissionLevel = {//cang be cang co quyen
         admin: 0,
         moderator: 1,
         translator: 2,

@@ -38,6 +38,17 @@ exports.register = async function ({ userInput = {} }) {
     await user.save();
     return user;
 }
+exports.updateUser = async function ({ userInput = {}, _id }, req) {
+    if (!req.isAuthority) throw new Error("Bạn chưa đăng nhập");
+    const me = req.user, user = await User.findById(_id);
+    if (!user) throw new Error("Tài khoản này không tồn tại");
+    if (!me.isAuthority(user.permission) && user._id != me._id)
+        throw new Error("Bạn không có quyền chỉnh sửa tài khoản này");
+    if (userInput.permission && !me.isAuthority(userInput.permission)) throw new Error("Bạn không đủ khả năng cấp quyền này!");
+    await User.updateOne({ _id }, userInput);
+    const result = await User.findById(_id);
+    return result;
+}
 exports.deleteUser = async function (args, req) {
     if (!req.isAuthority) throw new Error("Bạn chưa đăng nhập")
     if (!req.user.isAuthority('moderator')) throw new Error("Bạn phải có quyền moderator");

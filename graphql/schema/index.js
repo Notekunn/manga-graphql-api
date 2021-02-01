@@ -54,6 +54,18 @@ input UserInput {
     name: String
     email: String
 }
+input UserLoginInput{
+    userName: String!
+    password: String!
+}
+input UserChangesInput{
+    userName: String
+    password: String
+    name: String
+    email: String
+    avatarUrl: String
+    permission: Permission
+}
 type Artist {
     _id: ID
     name: String!
@@ -98,7 +110,8 @@ type RootQuery {
 type RootMutation {
     createCategory(categoryInput: CategoryInput!): Category!
     register(userInput: UserInput!): User!
-    login(userInput: UserInput): AuthData!
+    login(userInput: UserLoginInput!): AuthData!
+    updateUser(_id: ID!, userInput: UserChangesInput!): User
     deleteUser(_id: ID!): DeleteResult!
 }
 schema {
