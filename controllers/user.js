@@ -11,7 +11,7 @@ Date.prototype.addDays = function (days) {
 exports.users = async function ({ filter = {} }, req) {
     return await User.find({ ...filter })
         .select(['-password', '-__v'])
-        .sort({ createdAt: 1 })
+        .sort({ userName: 1 })
         .exec();
 }
 exports.user = async function ({ filter = {} }) {
@@ -38,10 +38,13 @@ exports.register = async function ({ userInput = {} }) {
     await user.save();
     return user;
 }
-exports.deleteUser = async function (args) {
+exports.deleteUser = async function (args, req) {
+    if (!req.isAuthority) throw new Error("Bạn chưa đăng nhập")
+    if (!req.user.isAuthority('moderator')) throw new Error("Bạn phải có quyền moderator");
     let id = args._id;
-    const result = await User.remove({ _id: id });
-    return result;
+    const result = await User.deleteOne({ _id: id, permission: { $in: ['member'] } });
+    const { n } = result;
+    return { success: true, rowsDeleted: n };
 }
 
 exports.login = async function ({ userInput = {} }) {

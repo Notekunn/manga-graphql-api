@@ -7,6 +7,10 @@ type AuthData {
     token: String!
     tokenExpiration: Date!
 }
+type DeleteResult{
+    success: Boolean!
+    rowsDeleted: Int
+}
 type Category {
     _id: ID
     title: String!
@@ -95,6 +99,7 @@ type RootMutation {
     createCategory(categoryInput: CategoryInput!): Category!
     register(userInput: UserInput!): User!
     login(userInput: UserInput): AuthData!
+    deleteUser(_id: ID!): DeleteResult!
 }
 schema {
     query: RootQuery
