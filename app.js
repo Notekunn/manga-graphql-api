@@ -25,9 +25,10 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 app.use(cors());
 app.use('/graphql', graphqlHTTP({
     schema: makeExecutableSchema({
-        typeDefs: graphQlSchema
+        typeDefs: graphQlSchema,
+        resolvers: graphQlResolvers
     }),
-    rootValue: graphQlResolvers,
+    // rootValue: graphQlResolvers,
     graphiql: true,
     pretty: true,
 }));

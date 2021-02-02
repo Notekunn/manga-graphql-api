@@ -28,8 +28,8 @@ input UserFilter {
 input UserInput {
     userName: String!
     password: String!
-    name: String
-    email: String
+    name: String!
+    email: String!
 }
 input UserLoginInput{
     userName: String!

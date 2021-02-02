@@ -19,4 +19,5 @@ type RootQuery {
 }
 type RootMutation {
     createCategory(categoryInput: CategoryInput!): Category!
+    deleteCategory(_id: ID!): DeleteResult!
 }

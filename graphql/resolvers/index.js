@@ -1,10 +1,13 @@
-const categoryController = require('../../controllers/category');
-const userController = require('../../controllers/user');
-const artistController = require('../../controllers/artist');
-const translatorGroupController = require('../../controllers/translator-group');
-module.exports = {
-    ...userController,
-    ...categoryController,
-    ...artistController,
-    ...translatorGroupController
-}
+const fs = require('fs');
+const path = require('path');
+const {  mergeResolvers } = require('graphql-tools');
+const resolverFiles = ["user", "category"];
+const dir = __dirname;
+const registerResolvers = resolverFiles.map(file=> {
+    const resolver = require(path.resolve(dir, `${file}.js`));
+    return resolver;
+})
+console.log(mergeResolvers(registerResolvers))
+module.exports = mergeResolvers(registerResolvers)
+
+// module.exports = resolvers;
