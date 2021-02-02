@@ -1,0 +1,56 @@
+enum Permission{
+    admin,
+    moderator,
+    translator,
+    member
+}
+type AuthData {
+    userId: ID!
+    token: String!
+    tokenExpiration: Date!
+}
+type User {
+    _id: ID
+    userName: String!
+    name: String
+    email: String!
+    avatarUrl: String
+    permission: Permission
+    createdAt: Date
+}
+input UserFilter {
+    _id: ID
+    userName: String
+    name: String
+    email: String    
+    permission: Permission
+}
+input UserInput {
+    userName: String!
+    password: String!
+    name: String
+    email: String
+}
+input UserLoginInput{
+    userName: String!
+    password: String!
+}
+input UserChangesInput{
+    userName: String
+    password: String
+    name: String
+    email: String
+    avatarUrl: String
+    permission: Permission
+}
+type RootQuery {
+    me: User
+    user(filter: UserFilter): User
+    users(filter: UserFilter): [User!]!
+}
+type RootMutation {
+    register(userInput: UserInput!): User!
+    login(userInput: UserLoginInput!): AuthData!
+    updateUser(_id: ID!, userInput: UserChangesInput!): User
+    deleteUser(_id: ID!): DeleteResult!
+}

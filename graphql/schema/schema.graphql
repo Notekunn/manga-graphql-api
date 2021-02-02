@@ -1,0 +1,9 @@
+scalar Date
+type DeleteResult{
+    success: Boolean!
+    rowsDeleted: Int!
+}
+schema {
+    query: RootQuery
+    mutation: RootMutation
+}

@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const { graphqlHTTP } = require('express-graphql');
+const { makeExecutableSchema } = require('graphql-tools');
 const cors = require('cors');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
@@ -23,7 +24,9 @@ mongoose.connect(process.env.MONGODB_URL, { useNewUrlParser: true, useUnifiedTop
 
 app.use(cors());
 app.use('/graphql', graphqlHTTP({
-    schema: graphQlSchema,
+    schema: makeExecutableSchema({
+        typeDefs: graphQlSchema
+    }),
     rootValue: graphQlResolvers,
     graphiql: true,
     pretty: true,

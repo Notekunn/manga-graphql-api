@@ -1,0 +1,26 @@
+type TranslatorGroup {
+    _id: ID
+    name: String
+    description: String
+    members: [User!]!
+    manager: User!
+    createdAt: Date
+}
+input TranslatorGroupFilter {
+    _id: ID
+    name: String
+    manager: ID
+}
+input TranslatorGroupInput {      
+    _id: ID
+    name: String
+    description: String
+    managerId: ID!
+}
+type RootQuery {
+    translatorGroup(filter: TranslatorGroupFilter): TranslatorGroup
+    translatorGroups(filter: TranslatorGroupFilter): [TranslatorGroup!]!
+}
+type RootMutation {
+    createTranslatorGroup(_id: ID): TranslatorGroup!
+}

@@ -1,0 +1,22 @@
+type Category {
+    _id: ID
+    title: String!
+    slug: String
+    description: String
+}
+input CategoryFilter{    
+    _id: ID
+    title: String
+    slug: String
+}
+input CategoryInput{    
+    title: String!
+    description: String
+}
+type RootQuery {
+    category(filter: CategoryFilter): Category
+    categories(filter: CategoryFilter): [Category!]!
+}
+type RootMutation {
+    createCategory(categoryInput: CategoryInput!): Category!
+}
