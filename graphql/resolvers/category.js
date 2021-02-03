@@ -30,6 +30,17 @@ const categoryResolver = {
             });
             return await category.save();
         },
+        updateCategory: async (parent, args, context, info) => {
+            const { categoryInput, _id } = args;
+            if (!context.isAuthority) throw new Error("Bạn chưa đăng nhập");
+            if (!context.user.isAuthority('moderator')) throw new Error("Bạn phải có quyền moderator");
+            if (categoryInput.title){
+                categoryInput.slug = await utils.generateSlug(Category, categoryInput.title, null);
+            }
+            const category = await Category.findByIdAndUpdate(_id, { ...categoryInput }, { new: true });
+            if (!category) throw new Error("Thể loại bạn chỉnh sửa không tồn tại");
+            return category;
+        },
         deleteCategory: async (parent, args, context, info) => {
             if (!context.isAuthority) throw new Error("Bạn chưa đăng nhập")
             if (!context.user.isAuthority('moderator')) throw new Error("Bạn phải có quyền moderator");

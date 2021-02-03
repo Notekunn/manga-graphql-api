@@ -64,8 +64,7 @@ const userResolver = {
             if (!me.isAuthority(user.permission) && user._id != me._id)
                 throw new Error("Bạn không có quyền chỉnh sửa tài khoản này");
             if (userInput.permission && !me.isAuthority(userInput.permission)) throw new Error("Bạn không đủ khả năng cấp quyền này!");
-            await User.updateOne({ _id }, userInput);
-            const result = await User.findById(_id);
+            const result = await User.findByIdAndUpdate(_id, { ...userInput }, { new: true });
             return result;
         },
         deleteUser: async (parent, args, context, info) => {
@@ -75,7 +74,7 @@ const userResolver = {
             const result = await User.deleteOne({ _id: id, permission: { $in: ['member'] } });
             const { n } = result;
             return { success: true, rowsDeleted: n };
-         }
+        }
 
     }
 }

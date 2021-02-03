@@ -13,11 +13,16 @@ input CategoryInput{
     title: String!
     description: String
 }
+input CategoryChangesInput{
+    title: String
+    description: String
+}
 type RootQuery {
     category(filter: CategoryFilter): Category
     categories(filter: CategoryFilter): [Category!]!
 }
 type RootMutation {
     createCategory(categoryInput: CategoryInput!): Category!
+    updateCategory(_id: ID!, categoryInput: CategoryChangesInput!): Category!
     deleteCategory(_id: ID!): DeleteResult!
 }
