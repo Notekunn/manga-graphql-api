@@ -74,7 +74,8 @@ const userResolver = {
         throw new Error('Bạn không có quyền chỉnh sửa tài khoản này');
       if (userInput.permission && !me.isAuthority(userInput.permission))
         throw new Error('Bạn không đủ khả năng cấp quyền này!');
-      if (userInput.password) userInput.password = bcrypt.hashSync(userInput.password, SALT);
+      if (userInput.password & (userInput.password.length > 0))
+        userInput.password = bcrypt.hashSync(userInput.password.trim(), SALT);
       const result = await User.findByIdAndUpdate(_id, { ...userInput }, { new: true });
       return result;
     },
