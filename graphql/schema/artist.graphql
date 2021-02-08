@@ -1,31 +1,31 @@
 type Artist {
-    _id: ID
-    name: String!
-    slug: String
-    about: String
-    coverUrl: String
+  _id: ID
+  name: String!
+  slug: String
+  about: String
+  coverUrl: String
 }
 input ArtistFilter {
-    _id: ID
-    name: String
-    slug: String
+  _id: ID
+  name: String
+  slug: String
 }
 input ArtistInput {
-    name: String!
-    about: String
-    coverUrl: String
+  name: String!
+  about: String
+  coverUrl: String
 }
 input ArtistChangesInput {
-    name: String
-    about: String
-    coverUrl: String
+  name: String
+  about: String
+  coverUrl: String
 }
 type RootQuery {
-    artist(filter: ArtistFilter): Artist
-    artists(filter: ArtistFilter): [Artist!]!
+  artist(filter: ArtistFilter): Artist
+  artists(filter: ArtistFilter): [Artist!]!
 }
 type RootMutation {
-    createArtist(artistInput: ArtistInput!): Artist!
-    updateArtist(_id: ID!, artistInput: ArtistChangesInput!): Artist!
-    deleteArtist(_id: ID): DeleteResult!
+  createArtist(artistInput: ArtistInput!): Artist!
+  updateArtist(_id: ID!, artistInput: ArtistChangesInput!): Artist!
+  deleteArtist(_id: ID): DeleteResult!
 }

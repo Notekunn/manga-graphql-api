@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "develop": "nodemon app.js"
+    "develop": "nodemon app.js",
+    "pretty": "prettier --write \"**/*.{js,jsx}\""
   },
   "author": "",
   "license": "ISC",
@@ -25,5 +26,8 @@
     "mongoose": "^5.11.12",
     "morgan": "^1.10.0",
     "slugify": "^1.4.6"
+  },
+  "devDependencies": {
+    "prettier": "^2.2.1"
   }
 }

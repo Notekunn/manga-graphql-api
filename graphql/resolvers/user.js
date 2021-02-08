@@ -75,7 +75,7 @@ const userResolver = {
       if (userInput.permission && !me.isAuthority(userInput.permission))
         throw new Error('Bạn không đủ khả năng cấp quyền này!');
       if (userInput.password & (userInput.password.length > 0))
-        userInput.password = bcrypt.hashSync(userInput.password.trim(), SALT);
+        userInput.password = bcrypt.hashSync(userInput.password, SALT);
       const result = await User.findByIdAndUpdate(_id, { ...userInput }, { new: true });
       return result;
     },
